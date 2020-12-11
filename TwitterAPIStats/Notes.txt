@@ -1,0 +1,15 @@
+﻿TOP Emoji SQL: SELECT `VALUE`, COUNT(`VALUE`) FROM main.emojis GROUP BY `VALUE` ORDER BY COUNT(`VALUE`) DESC;
+
+Hashtag SQL: SELECT `tag`, COUNT(`tag`) FROM main.hashtags GROUP BY `tag` ORDER BY COUNT(`tag`) DESC;
+
+Mentions SQL: SELECT `name`, COUNT(`name`) FROM main.mentions GROUP BY `name` ORDER BY COUNT(`name`) DESC;
+
+Tweets stats: 
+SELECT COUNT(*) AS 'Total', 
+		(SELECT COUNT(*) FROM main.tweets WHERE hasUrl = 1) AS 'Urls', 
+		(SELECT COUNT(*) FROM main.tweets WHERE hasImage = 1) AS 'Images', 
+		(SELECT COUNT(*) FROM main.tweets WHERE hasEmoji = 1) AS 'Emoji',
+		(SELECT SUM(`LIKE`) FROM main.tweets) AS 'Total Likes',
+		(SELECT SUM(`reTweet`) FROM main.tweets) AS 'Total Retweets'
+	FROM main.tweets;
+
